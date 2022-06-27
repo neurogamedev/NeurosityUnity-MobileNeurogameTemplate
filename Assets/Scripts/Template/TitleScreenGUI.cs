@@ -180,7 +180,7 @@ namespace Notion.Unity
                 }
                 catch (Exception e)
                 {
-                    Debug.Log(e.InnerException.Message.ToString());
+                    Debug.Log(e);
                 }
             }
             else
@@ -366,6 +366,7 @@ namespace Notion.Unity
             } 
             catch (Exception e) // Otherwise tell the user what went wrong.
             {
+                Debug.Log(e);
                 infoText.text = e.InnerException.Message.ToString();
                 buttonLogin.GetComponentInChildren<TMP_Text>().text = "Login";
                 buttonLogin.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);

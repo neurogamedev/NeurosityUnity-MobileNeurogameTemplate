@@ -659,11 +659,25 @@ namespace Notion.Unity
             device.Email = _inputEmail;
             device.Password = _inputPassword;
 
-            controller = new FirebaseController();
-            await controller.Initialize();
+            try 
+            {
+                controller = new FirebaseController();
+                await controller.Initialize();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
 
-            notion = new Notion(controller);
-            await notion.Login(device);
+            try
+            {
+                notion = new Notion(controller);
+                await notion.Login(device);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
 
             IsLoggedIn = true;
 
