@@ -391,6 +391,7 @@ namespace Notion.Unity
 
                 foreach (DeviceInfo device in devicesInfo)
                 {
+                    if (device == null) break;
                     fetchedDevices.Add(new TMP_Dropdown.OptionData(device.DeviceNickname));
                 }
 

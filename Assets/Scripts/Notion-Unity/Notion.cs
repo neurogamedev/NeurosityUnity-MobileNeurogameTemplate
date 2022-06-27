@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace Notion.Unity
 {
     public class Notion
@@ -19,11 +21,19 @@ namespace Notion.Unity
             _firebase = firebaseController;
         }
 
-        public async Task Login(Device credientials)
+        public async Task Login(Device credentials)
         {
-            var u = await _firebase.Login(credientials);
+            
+            var u = await _firebase.Login(credentials);
             _user = new NeurosityUser(u, _firebase);
-            _subscriptionManager = new SubscriptionManager(_firebase, credientials, _user);
+
+            if(credentials.DeviceId == "")
+            {
+                IEnumerable<string> credentialsKeys = await GetAccountDeviceIds(credentials);
+                credentials.DeviceId = credentialsKeys.FirstOrDefault();
+            }
+
+            _subscriptionManager = new SubscriptionManager(_firebase, credentials, _user);
 
             Status = await _user.GetSelectedDeviceStatus();
 
@@ -35,6 +45,12 @@ namespace Notion.Unity
             await _subscriptionManager.Dispose();
             _firebase.Logout();
             IsLoggedIn = false;
+        }
+
+   
+        public async Task<IEnumerable<string>> GetAccountDeviceIds(Device credentials)
+        {
+            return await _user.GetAccountDeviceIds();
         }
 
         public async Task<IEnumerable<DeviceInfo>> GetDevices()

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "740127573991",
+    "firebase_url": "https://notion-unity-example.firebaseio.com",
     "project_id": "notion-unity-example",
     "storage_bucket": "notion-unity-example.appspot.com"
   },

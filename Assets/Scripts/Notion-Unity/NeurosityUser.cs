@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace Notion.Unity
 {
     public class NeurosityUser
@@ -25,25 +27,44 @@ namespace Notion.Unity
             UserId = _firebaseUsers.UserId;
             _devicesReference = _firebase.NotionDatabase.GetReference($"users/{UserId}/devices");
         }
+        
+        public async Task<IEnumerable<string>> GetAccountDeviceIds()
+        {
+            var devicesSnapshot = await _devicesReference.GetValueAsync();
+
+            Dictionary<string, object> registeredDevices = devicesSnapshot.Value as Dictionary<string, object>;
+
+            if (registeredDevices == null) return null;
+            var deviceKeys = registeredDevices.Keys;
+            List<string> deviceIds = new List<string>(deviceKeys.Count);
+
+            foreach (string deviceId in deviceKeys)
+            {
+                deviceIds.Add(deviceId);
+            }
+
+            return deviceIds;
+        }
 
         public async Task<IEnumerable<DeviceInfo>> GetDevices()
         {
             var devicesSnapshot = await _devicesReference.GetValueAsync();
 
             Dictionary<string, object> registeredDevices = devicesSnapshot.Value as Dictionary<string, object>;
+            
             if (registeredDevices == null) return null;
-
             var deviceKeys = registeredDevices.Keys;
             List<DeviceInfo> devicesInfo = new List<DeviceInfo>(deviceKeys.Count);
 
             foreach (string deviceId in deviceKeys)
-            {
+            {           
                 var infoSnapshot = await _firebase.NotionDatabase.
                     GetReference($"devices/{deviceId}/info").GetValueAsync();
-
+                Debug.Log(infoSnapshot.GetRawJsonValue());
                 string json = infoSnapshot.GetRawJsonValue();
                 DeviceInfo info = JsonConvert.DeserializeObject<DeviceInfo>(json);
                 devicesInfo.Add(info);
+           
             }
 
             return devicesInfo;
@@ -53,6 +74,7 @@ namespace Notion.Unity
         {
             var devices = await GetDevices();
             DeviceInfo selectedDevice = devices.FirstOrDefault();
+            Debug.Log("SELECTED DEVICEEEE: " + selectedDevice);
             _deviceRef = _firebase.NotionDatabase.GetReference($"devices/{selectedDevice.DeviceId}");
             return selectedDevice;
         }
