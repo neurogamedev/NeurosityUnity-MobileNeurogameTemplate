@@ -55,7 +55,7 @@ namespace Notion.Unity
 
         public async Task<IEnumerable<DeviceInfo>> GetDevices()
         {
-            return await _user.GetDevices();
+            return await _user.GetDevicesSlow(); // Modified from Ryan Turney's SDK. See sumamry in NeurosityUser.cs
         }
 
         public async Task<DeviceInfo> GetSelectedDevice()

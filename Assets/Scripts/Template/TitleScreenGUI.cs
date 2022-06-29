@@ -31,6 +31,9 @@ namespace Notion.Unity
         public GameObject panelLogin;
         public TMP_InputField inputEmail;
         public TMP_InputField inputPassword;
+        public Button buttonPasswordVisibility;
+        public Sprite eyeOpenSprite;            // This is an asset, not in the scene.
+        public Sprite eyeSlashSprite;           // This is an asset, not in the scene.
         public Button buttonLogin;
         public Toggle toggleRememberUser;
         public GameObject panelInfo;
@@ -116,8 +119,11 @@ namespace Notion.Unity
 
             // Let's initialize all the buttons.
             buttonLogin.onClick.AddListener(delegate { LoginButton(deviceInterface.IsLoggedIn); }); 
-            buttonSelect.onClick.AddListener(delegate { SelectDevice(dropdownDevices.captionText.text); }); 
+            buttonSelect.onClick.AddListener(delegate { SelectDevice(dropdownDevices.captionText.text); });
+            buttonPasswordVisibility.onClick.AddListener(TogglePasswordVisibility);
+            buttonPasswordVisibility.onClick.RemoveListener(TogglePasswordVisibility);
             toggleRememberUser.onValueChanged.AddListener(delegate { RememberUser(toggleRememberUser.isOn); });
+
         }
 
         ///////////////////////////////////
@@ -160,6 +166,23 @@ namespace Notion.Unity
         //// FOR THE PANEL 02 BUTTONS ////
 
         //////////////////////////////////
+        
+        // Method to toggle passowrd visibility.
+        public void TogglePasswordVisibility()
+        {
+            if(inputPassword.contentType == TMP_InputField.ContentType.Standard)
+            {
+                inputPassword.contentType = TMP_InputField.ContentType.Password;
+                buttonPasswordVisibility.GetComponent<Image>().sprite = eyeSlashSprite;
+            }
+            else if (inputPassword.contentType == TMP_InputField.ContentType.Password)
+            {
+                inputPassword.contentType = TMP_InputField.ContentType.Standard; 
+                buttonPasswordVisibility.GetComponent<Image>().sprite = eyeOpenSprite; 
+            }
+
+            inputPassword.Select();
+        }
 
         // Method for the IsRemembered boolean.
         public void RememberUser(bool IsRemembered)
