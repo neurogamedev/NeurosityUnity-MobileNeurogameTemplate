@@ -32,7 +32,7 @@ If you're more into design and less into coding, you can find templates ready fo
 I left the Starter Assets folder untouched if you'd like to also use them for your prototypes.
 
 ## Dependencies
-* [Unity 2022.1.5f1](https://unity3d.com/get-unity/download/archive)
+* [Unity 2022.2.0f1](https://unity3d.com/get-unity/download/archive)
 * [Firebase for Unity Authentication](https://developers.google.com/unity/packages#firebase_authentication)
 * [Firebase for Unity Realtime Database](https://developers.google.com/unity/packages#firebase_realtime_database)
 * [Json.NET by jilleJr](https://github.com/jilleJr/Newtonsoft.Json-for-Unity)
@@ -46,12 +46,8 @@ Other apps will require your own Firebase project, you can follow [Firebase Docu
 ## !! Building and Sharing !!
 Be sure to check my notes about encryption in the `NotionInterfacer.cs` in the *Assets/Scripts/Template* folder. Encryption is hard-coded and automatic deletion of your login info from the Device intances is not guarnteed. Try your best not to give away your login data when sharing your project.
 
-## To Do
-
-- Fix Logout() warnings stemming from processes being interrupted mid-thread.
-
 ## Frequently Asked Questions
 
-**Q: Why are there no questions here?**
+**Q: Can this template be used for VR?**
 
-A: People haven't yet asked me questions to populate this section.
+A: A fellow Neurosity user was successfully able to use this template to make a VR app in Oculus Quest 2 (Android). Other than that, it should be theoretically possible, yes.
