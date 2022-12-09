@@ -46,6 +46,10 @@ Other apps will require your own Firebase project, you can follow [Firebase Docu
 ## !! Building and Sharing !!
 Be sure to check my notes about encryption in the `NotionInterfacer.cs` in the *Assets/Scripts/Template* folder. Encryption is hard-coded and automatic deletion of your login info from the Device intances is not guarnteed. Try your best not to give away your login data when sharing your project.
 
+## To Do
+
+- Fix Logout() warnings stemming from processes being interrupted mid-thread.
+
 ## Frequently Asked Questions
 
 **Q: Can this template be used for VR?**
